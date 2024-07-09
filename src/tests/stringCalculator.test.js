@@ -38,3 +38,12 @@ test("throws an exception for negative numbers", () => {
   // Test case 3: No negative numbers (should not throw)
   expect(() => add("1,2,3")).not.toThrow();
 });
+
+it('handles large amount of numbers', () => {
+    expect(add('1,2,3,4,5,6,7,8,9,10')).toBe(55);
+  });
+
+  it('handles numbers with leading/trailing spaces', () => {
+    expect(add(' 1, 2,3 ,4, 5 ')).toBe(15);
+  });
+
