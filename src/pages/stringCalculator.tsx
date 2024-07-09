@@ -1,24 +1,50 @@
 import React, { useState } from "react";
 
-export const add = (numbers: string): number => {
-  if (numbers === '') {
+export function add(numbers) {
+  if (numbers === "") {
     return 0;
   }
-  const numArray = numbers.split(/[\n,]/).map(Number);
-  return numArray.reduce((acc, curr) => acc + curr, 0);
-};
+
+  let delimiter = ",";
+  let nums = numbers;
+
+  if (numbers.startsWith("//")) {
+    const delimiterEndIndex = numbers.indexOf("\n");
+    delimiter = numbers.substring(2, delimiterEndIndex); 
+    nums = numbers.substring(delimiterEndIndex + 1); 
+  }
+
+  // Handle different delimiters and new lines properly
+  const numArray = nums.split(new RegExp(`[${delimiter}\\n]`)).map((num) => {
+    const parsedNum = parseInt(num.trim(), 10);
+    return isNaN(parsedNum) ? 0 : parsedNum;
+  });
+
+  const negatives = numArray.filter((num) => num < 0);
+
+  if (negatives.length > 0) {
+    throw new Error(`negative numbers not allowed: ${negatives.join(",")}`);
+  }
+
+  return numArray.reduce((acc, num) => acc + num, 0);
+}
 
 const StringCalculator = () => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState(0);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
   };
 
   const handleAddClick = () => {
-    const calculatedResult = add(input);
-    setResult(calculatedResult);
+    try {
+      const calculatedResult = add(input);
+      setResult(calculatedResult);
+    } catch (error) {
+      console.error("Error calculating result:", error.message);
+      setResult(0); 
+    }
   };
 
   return (
