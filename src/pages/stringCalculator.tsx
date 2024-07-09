@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 export const add = (numbers: string): number => {
-  if (numbers === "") {
+  if (numbers === '') {
     return 0;
   }
-  const numArray = numbers.split(",").map(Number);
+  const numArray = numbers.split(',').map(Number);
   return numArray.reduce((acc, curr) => acc + curr, 0);
 };
 

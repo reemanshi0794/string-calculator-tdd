@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders StringCalculator component', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  // Use a test id or text content to find the rendered component
+  const stringCalculatorElement = screen.getByText('String Calculator');
+  expect(stringCalculatorElement).toBeInTheDocument();
 });
