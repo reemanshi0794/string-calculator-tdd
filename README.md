@@ -8,6 +8,10 @@ In the project directory, you can run:
 
 ### `npm start`
 
+In the project directory, you can run test command to check test cases:
+
+### `npm run test`
+
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
