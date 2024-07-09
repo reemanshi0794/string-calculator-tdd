@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 
+export const add = (numbers: string): number => {
+  if (numbers === "") {
+    return 0;
+  }
+  return parseInt(numbers);
+};
+
 const StringCalculator = () => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState(0);
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
+  };
+
+  const handleAddClick = () => {
+    const calculatedResult = add(input);
+    setResult(calculatedResult);
   };
 
   return (
@@ -17,7 +29,7 @@ const StringCalculator = () => {
         value={input}
         onChange={handleInputChange}
       />
-      <button>Add</button>
+      <button onClick={handleAddClick}>Add</button>
       <p>Result: {result}</p>
     </div>
   );
